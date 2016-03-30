@@ -5,7 +5,7 @@
  */
 package cn4;
 import java.io.*;
-
+import java.util.*;
 /**
  *
  * @author Costi
@@ -42,9 +42,9 @@ public class CN4
         
         System.out.println("are vectors equal? " + areVectorsEqualWithEpsilon(aMultiplied, outFirst.x, 1e-3));
         
-        //System.out.println(cnjava1.CNJava1.printVector(aMultiplied));
-        //System.out.println(cnjava1.CNJava1.printVector(outFirst.x));
-        
+        List<List<RareMatrix.ColumnIndexAndValue>> productAsListOfLines = product.asListOfLines();
+        System.out.println("product as list of lines ");
+        System.out.println(productAsListOfLines);
     }
     
     
@@ -111,7 +111,6 @@ public class CN4
                 
                 double val = out.A.getValue(line, column);
                 out.A.setValue(line, column, val + elem);
-                //System.out.println("Did read line " + infoLine);
                 infoLine = br.readLine();
             }
         }

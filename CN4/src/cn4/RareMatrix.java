@@ -5,6 +5,26 @@ import java.util.*;
 
 public class RareMatrix 
 {
+    
+        public static class ColumnIndexAndValue
+        {
+            int columnIndex;
+            double value;
+            
+            public ColumnIndexAndValue(int index, double value)
+            {
+                this.columnIndex = index;
+                this.value = value;
+            }
+
+        @Override
+        public String toString() {
+            return "(" + this.columnIndex + ", " + this.value + ")";
+        }
+            
+            
+        }
+        
 	private static double epsilon = 0.0001;
 	
 	private Map<Integer, Map<Integer, Double>> matrixMap;
@@ -39,6 +59,31 @@ public class RareMatrix
 			 return unboxed;
 	}
 	
+        public List<List<ColumnIndexAndValue>> asListOfLines()
+        {
+            List<List<ColumnIndexAndValue>> linesList = new ArrayList<>();
+            
+            for(int i=0; i<this.numOfLines; i++)
+            {
+                linesList.add(new ArrayList<ColumnIndexAndValue>());
+            }
+            
+            Set<Integer> linesSet = this.matrixMap.keySet();
+            for(int line: linesSet)
+            {
+                Map<Integer, Double> lineI = this.matrixMap.get(line);
+                Set<Integer> columns = lineI.keySet();
+                List<ColumnIndexAndValue> listI = linesList.get(line);
+                
+                for(int j : columns)
+                {
+                    listI.add(new ColumnIndexAndValue(j, lineI.get(j)));
+                }
+            }
+            
+            return linesList;
+        }
+        
 	public int getNumberOfColumns()
 	{
 		return this.numOfColumns;
